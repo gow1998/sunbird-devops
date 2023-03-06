@@ -58,7 +58,7 @@
   shell: "echo info keyspace | ./src/redis-cli"
   register: restoreinfo
   args:
-    chdir: "/home/learning/redis-stable/"
+    chdir: "/data-redis/"
 
 - debug: var=restoreinfo.stdout_lines
 
