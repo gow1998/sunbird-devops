@@ -16,7 +16,7 @@
   vars:
     blob_container_name: "{{ cloud_storage_postgresqlbackup_foldername }}"
     blob_file_name: "{{ postgres_backup_filename }}"
-    local_file_or_folder_path: "{{ postgresl_restore_dir }}/{{ postgres_backup_filepath }}"
+    local_file_or_folder_path: "{{ postgresql_restore_dir }}/{{ postgres_backup_filepath }}"
     storage_account_name: "{{ cloud_management_storage_accountname }}"
     storage_account_key: "{{ cloud_management_storage_secret }}"
   when: cloud_service_provider == "azure"
@@ -30,7 +30,7 @@
     aws_access_key_id: "{{ cloud_management_storage_accountname }}"
     aws_secret_access_key: "{{ cloud_management_storage_secret }}"
     aws_default_region: "{{ cloud_public_storage_region }}"
-    local_file_or_folder_path: "{{ postgresl_restore_dir }}/{{ postgres_backup_filepath }}"
+    local_file_or_folder_path: "{{ postgresql_restore_dir }}/{{ postgres_backup_filepath }}"
     s3_path: "{{ cloud_storage_postgresqlbackup_foldername }}/{{ postgres_backup_filename }}"
   when: cloud_service_provider == "aws"
    
@@ -43,7 +43,7 @@
     gcp_storage_key_file: "{{ cloud_management_storage_secret }}"
     gcp_bucket_name: "{{ cloud_storage_postgresqlbackup_bucketname }}"
     gcp_path: "{{ cloud_storage_postgresqlbackup_foldername }}/{{ postgres_backup_filename }}"
-    local_file_or_folder_path: "{{ postgresl_restore_dir }}/{{ postgres_backup_filepath }}"
+    local_file_or_folder_path: "{{ postgresql_restore_dir }}/{{ postgres_backup_filepath }}"
   when: cloud_service_provider == "gcloud"
 
 - name: unarchive artifact
@@ -95,6 +95,6 @@
     state: restore
     target: "{{ item }}.sql"
   args:
-    chdir: "{{ postgresl_restore_dir }}"
+    chdir: "{{ postgresql_restore_dir }}"
   with_items: "{{ db.name }}"
 
